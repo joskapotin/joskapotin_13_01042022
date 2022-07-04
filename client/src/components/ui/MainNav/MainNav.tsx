@@ -1,15 +1,16 @@
-import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '../../../features/auth/authSlice'
+import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import useAppDispatch from "../../../hooks/useAppDispatch"
+import { logout } from "../../../features/auth/authSlice"
 
-import ROUTES from '../../../constants/routes'
-import { selectIsAuth, selectProfile } from '../../../utils/selectors'
-import argentLogo from '../../../assets/img/argentBankLogo.png'
+import ROUTES from "../../../constants/routes"
+import { selectIsAuth, selectFirstName } from "../../../utils/selectors"
+import argentLogo from "../../../assets/img/argentBankLogo.png"
 
 function MainNav() {
   const isAuth = useSelector(selectIsAuth)
-  const { firstName } = useSelector(selectProfile)
-  const dispatch = useDispatch()
+  const firstName = useSelector(selectFirstName)
+  const dispatch = useAppDispatch()
 
   const handleSignOut = () => {
     dispatch(logout())
@@ -18,11 +19,7 @@ function MainNav() {
   return (
     <nav className="main-nav">
       <Link to={ROUTES.HOME} className="main-nav-logo">
-        <img
-          className="main-nav-logo-image"
-          src={argentLogo}
-          alt="Argent Bank Logo"
-        />
+        <img className="main-nav-logo-image" src={argentLogo} alt="Argent Bank Logo" />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
@@ -33,11 +30,7 @@ function MainNav() {
               {firstName}
             </Link>
 
-            <button
-              type="button"
-              className="main-nav-item sign-out-button"
-              onClick={handleSignOut}
-            >
+            <button type="button" className="main-nav-item sign-out-button" onClick={handleSignOut}>
               <i className="fa fa-sign-out" aria-hidden="true" />
               Sign out
             </button>

@@ -1,18 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  updateProfile,
-  toggleIsEditing
-} from '../../../features/user/userSlice'
-import ProfileForm from './ProfileForm'
-import { selectUser } from '../../../utils/selectors'
+import { useSelector } from "react-redux"
+import ProfileForm from "./ProfileForm"
+import { selectUser } from "../../../utils/selectors"
 
 function Profile() {
-  const dispatch = useDispatch()
-  const { profile, isEditing, isLoading, isError, message } =
-    useSelector(selectUser)
-
-  const handleEditProfile = () => dispatch(toggleIsEditing())
-  const handleSaveProfile = (formData) => dispatch(updateProfile(formData))
+  const { profile, isLoading, isError, message } = useSelector(selectUser)
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>{message}</div>
@@ -23,24 +14,9 @@ function Profile() {
         <h1>
           Welcome back
           <br />
-          {profile.firstName} {profile.lastName}!
+          {profile?.firstName} {profile?.lastName}!
         </h1>
-        {isEditing ? (
-          <ProfileForm
-            handleEditProfile={handleEditProfile}
-            handleSaveProfile={handleSaveProfile}
-            firstName={profile.firstName}
-            lastName={profile.lastName}
-          />
-        ) : (
-          <button
-            type="button"
-            onClick={handleEditProfile}
-            className="edit-button"
-          >
-            Edit Name
-          </button>
-        )}
+        <ProfileForm />
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
