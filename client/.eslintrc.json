@@ -1,10 +1,10 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
     "standard",
-    "plugin:import/typescript",
+    "plugin:react/recommended",
     "plugin:react/jsx-runtime",
+    "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
@@ -24,9 +24,6 @@
   "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
   "rules": {
     "react/jsx-props-no-spreading": "off",
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
-    "@typescript-eslint/no-non-null-assertion": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "import/extensions": [
       "error",

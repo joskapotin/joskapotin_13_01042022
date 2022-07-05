@@ -7,8 +7,12 @@ import type { FormData } from "../../components/pages/SignIn/SignInForm"
 export type AuthState = {
   isLoading: boolean
   isAuth: boolean
-  message: string | null
+  message?: string
 }
+
+export type LoginSuccess = string
+
+export type LoginError = string
 
 export interface CustomError extends Error {
   response: AxiosError & {
@@ -18,40 +22,43 @@ export interface CustomError extends Error {
   }
 }
 
-const initialState: AuthState = {
+const initialState = {
   isLoading: false,
   isAuth: !!authHelpers.getToken(),
-  message: null,
-}
+  message: undefined,
+} as AuthState
 
 // Login user
-export const login = createAsyncThunk("auth/login", async (formData: FormData, thunkAPI) => {
-  const { email, password, rememberMe } = formData
-  try {
-    const data = await authService.login({ email, password })
-    const { message } = data
-    const { token } = data.body ?? {}
+export const login = createAsyncThunk<LoginSuccess, FormData, { rejectValue: LoginError }>(
+  "auth/login",
+  async (formData, thunkAPI) => {
+    const { email, password, rememberMe } = formData
+    try {
+      const data = await authService.login({ email, password })
+      const { message } = data
+      const token = data.body?.token
 
-    if (token) {
-      switch (rememberMe) {
-        case true:
-          localStorage.setItem("token", token)
-          break
-        case false:
-          sessionStorage.setItem("token", token)
-          break
-        default:
-          break
+      if (token) {
+        switch (rememberMe) {
+          case true:
+            localStorage.setItem("token", token)
+            break
+          case false:
+            sessionStorage.setItem("token", token)
+            break
+          default:
+            break
+        }
       }
-    }
 
-    return message
-  } catch (err) {
-    const error = err as CustomError
-    const message = error.response.data.message || error.message
-    return thunkAPI.rejectWithValue(message)
-  }
-})
+      return message
+    } catch (err) {
+      const error = err as CustomError
+      const message = error.response.data.message || error.message
+      return thunkAPI.rejectWithValue(message)
+    }
+  },
+)
 
 const authSlice = createSlice({
   name: "auth",
@@ -60,7 +67,7 @@ const authSlice = createSlice({
     logout: state => {
       state.isLoading = false
       state.isAuth = false
-      state.message = null
+      state.message = undefined
       authService.logout()
     },
   },
@@ -71,11 +78,11 @@ const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, { payload }) => {
       state.isLoading = false
       state.isAuth = true
-      state.message = payload as string
+      state.message = payload
     })
     builder.addCase(login.rejected, (state, { payload }) => {
       state.isLoading = false
-      state.message = payload as string
+      state.message = payload
     })
   },
 })

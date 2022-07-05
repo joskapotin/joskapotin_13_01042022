@@ -15,7 +15,7 @@ export type Profile = {
 export interface GetProfileResponse extends AxiosResponse {
   status: number
   message: string
-  body: Profile | null
+  body?: Profile
 }
 
 export type GetProfileFunction = () => Promise<GetProfileResponse>
@@ -28,7 +28,7 @@ export type UpdateProfileProps = {
 export interface UpdateProfileResponse extends AxiosResponse {
   status: number
   message: string
-  body: Profile | null
+  body?: Profile
 }
 
 export type UpdateProfileFunction = (profile: UpdateProfileProps) => Promise<UpdateProfileResponse>

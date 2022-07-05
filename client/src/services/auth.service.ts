@@ -9,9 +9,9 @@ export type LoginProps = {
 export interface LoginResponse {
   status: string
   message: string
-  body: {
+  body?: {
     token: string
-  } | null
+  }
 }
 
 export type LoginFunction = (props: LoginProps) => Promise<LoginResponse>
