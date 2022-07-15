@@ -14,7 +14,7 @@ export type UserState = {
 
 export type ProfileSuccess = {
   message: string
-  profile?: Profile
+  profile: Profile
 }
 
 export type ProfileError = string
@@ -27,13 +27,11 @@ export interface CustomError extends Error {
   }
 }
 
-const initialState = {
+const initialState: UserState = {
   isLoading: false,
   isError: false,
-  profile: undefined,
   isEditing: false,
-  message: undefined,
-} as UserState
+}
 
 export const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: ProfileError }>(
   "user/getProfile",
@@ -43,7 +41,6 @@ export const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: 
       const { message, body: profile } = data
       return { message, profile }
     } catch (err) {
-      console.log(err)
       const error = err as CustomError
       const message = error.response.data.message || error.message
       return thunkAPI.rejectWithValue(message)
@@ -70,7 +67,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    toggleIsEditing: state => {
+    toggleIsEditing: (state: UserState) => {
       state.isEditing = !state.isEditing
     },
   },

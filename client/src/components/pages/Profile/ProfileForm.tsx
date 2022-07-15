@@ -14,7 +14,7 @@ function ProfileForm() {
   const dispatch = useAppDispatch()
 
   const { profile, isEditing } = useSelector(selectUser)
-  const { firstName, lastName } = profile ?? {}
+  const { firstName, lastName } = profile || {}
 
   const handleEditToggle = () => dispatch(toggleIsEditing())
   const handleSaveProfile = (formData: FormData) => dispatch(updateProfile(formData))

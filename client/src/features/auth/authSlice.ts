@@ -22,11 +22,11 @@ export interface CustomError extends Error {
   }
 }
 
-const initialState = {
+const initialState: AuthState = {
   isLoading: false,
   isAuth: !!authHelpers.getToken(),
   message: undefined,
-} as AuthState
+}
 
 // Login user
 export const login = createAsyncThunk<LoginSuccess, FormData, { rejectValue: LoginError }>(
@@ -64,7 +64,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: state => {
+    logout: (state: AuthState) => {
       state.isLoading = false
       state.isAuth = false
       state.message = undefined
