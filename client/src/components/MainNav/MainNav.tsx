@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
-import useAppDispatch from "../../../hooks/useAppDispatch"
-import { logout } from "../../../features/auth/authSlice"
-
-import ROUTES from "../../../constants/routes"
-import { selectIsAuth, selectFirstName } from "../../../utils/selectors"
-import argentLogo from "../../../assets/img/argentBankLogo.png"
+import ROUTES from "~/constants/routes"
+import useAppSelector from "~/hooks/useAppSelector"
+import useAppDispatch from "~/hooks/useAppDispatch"
+import { logout } from "~/features/auth/authSlice"
+import { selectIsAuth, selectFirstName } from "~/utils/selectors"
+import argentLogo from "~/assets/img/argentBankLogo.png"
 
 function MainNav() {
-  const isAuth = useSelector(selectIsAuth)
-  const firstName = useSelector(selectFirstName)
+  const isAuth = useAppSelector(selectIsAuth)
+  const firstName = useAppSelector(selectFirstName)
   const dispatch = useAppDispatch()
 
   const handleSignOut = () => {

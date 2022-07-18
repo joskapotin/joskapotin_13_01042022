@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux"
+import useAppSelector from "~/hooks/useAppSelector"
+import { selectUser } from "~/utils/selectors"
 import ProfileForm from "./ProfileForm"
-import { selectUser } from "../../../utils/selectors"
 
 function Profile() {
-  const { profile, isLoading, isError, message } = useSelector(selectUser)
+  const { profile, isLoading, isError, message } = useAppSelector(selectUser)
 
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>{message}</div>

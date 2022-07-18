@@ -1,5 +1,5 @@
 import axios from "axios"
-import API_URL from "../constants/api"
+import API_URL from "~/constants/api"
 
 export type LoginProps = {
   email: string
@@ -28,9 +28,12 @@ const login: LoginFunction = async ({ email, password }) => {
 const logout = () => {
   sessionStorage.removeItem("token")
   localStorage.removeItem("token")
+  window.location.reload()
 }
 
-export default {
+const authService = {
   login,
   logout,
 }
+
+export default authService

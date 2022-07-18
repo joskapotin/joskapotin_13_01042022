@@ -1,7 +1,8 @@
 import axios from "axios"
-import type { AxiosResponse } from "axios"
+import API_URL from "~/constants/api"
 import authHeader from "./auth-header"
-import API_URL from "../constants/api"
+
+import type { AxiosResponse } from "axios"
 
 export type Profile = {
   email: string
@@ -62,7 +63,9 @@ const updateProfile: UpdateProfileFunction = async profile => {
   return Promise.reject(new Error("No token"))
 }
 
-export default {
+const userService = {
   getProfile,
   updateProfile,
 }
+
+export default userService

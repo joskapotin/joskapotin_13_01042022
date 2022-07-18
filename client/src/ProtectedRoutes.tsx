@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux"
 import { useLocation, Navigate } from "react-router-dom"
 import PropTypes from "prop-types"
-import { selectIsAuth } from "./utils/selectors"
 import ROUTES from "./constants/routes"
+import useAppSelector from "./hooks/useAppSelector"
+import { selectIsAuth } from "./utils/selectors"
 
 export type ProtectedRouteProps = {
   element: JSX.Element
@@ -13,7 +13,7 @@ export type ProtectedRouteProps = {
  * If the user is authenticated, render the element, otherwise redirect to the home page
  */
 function ProtectedRoute({ element, redirectTo }: ProtectedRouteProps) {
-  const isAuth = useSelector(selectIsAuth)
+  const isAuth = useAppSelector(selectIsAuth)
   const location = useLocation()
 
   return isAuth ? element : <Navigate replace state={{ from: location }} to={redirectTo} />
@@ -26,6 +26,6 @@ ProtectedRoute.defaultProps = {
 }
 
 ProtectedRoute.propTypes = {
-  element: PropTypes.element.isRequired,
+  element: PropTypes.node.isRequired,
   redirectTo: PropTypes.string,
 }

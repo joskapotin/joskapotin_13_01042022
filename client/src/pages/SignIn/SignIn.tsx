@@ -1,19 +1,16 @@
-import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
-import ROUTES from "../../../constants/routes"
+import ROUTES from "~/constants/routes"
+import useAppSelector from "~/hooks/useAppSelector"
+import { selectAuth } from "~/utils/selectors"
 import SignInForm from "./SignInForm"
-import { selectAuth } from "../../../utils/selectors"
 
 function SignIn() {
-  const { isAuth, isLoading, message } = useSelector(selectAuth)
+  const { isAuth, isLoading, message } = useAppSelector(selectAuth)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (isAuth) {
-      navigate(ROUTES.PROFILE)
-    }
-  }, [isAuth, navigate])
+  if (isAuth) {
+    navigate(ROUTES.PROFILE)
+  }
 
   return (
     <main className="main bg-dark">

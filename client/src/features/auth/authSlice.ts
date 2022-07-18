@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import authService from "~/services/auth.service"
+import { getToken } from "~/services/auth-header"
+
 import type { AxiosError } from "axios"
-import authService from "../../services/auth.service"
-import authHelpers from "../../utils/auth.helpers"
-import type { FormData } from "../../components/pages/SignIn/SignInForm"
+import type { FormData } from "~/pages/SignIn/SignInForm"
 
 export type AuthState = {
   isLoading: boolean
@@ -24,8 +25,7 @@ export interface CustomError extends Error {
 
 const initialState: AuthState = {
   isLoading: false,
-  isAuth: !!authHelpers.getToken(),
-  message: undefined,
+  isAuth: !!getToken(),
 }
 
 // Login user
@@ -67,7 +67,7 @@ const authSlice = createSlice({
     logout: (state: AuthState) => {
       state.isLoading = false
       state.isAuth = false
-      state.message = undefined
+      state.message = "Logout successful"
       authService.logout()
     },
   },

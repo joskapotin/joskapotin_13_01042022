@@ -1,9 +1,10 @@
-import { useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
+import useAppSelector from "~/hooks/useAppSelector"
+import useAppDispatch from "~/hooks/useAppDispatch"
+import { updateProfile, toggleIsEditing } from "~/features/user/userSlice"
+import { selectUser } from "~/utils/selectors"
+
 import type { SubmitHandler } from "react-hook-form"
-import useAppDispatch from "../../../hooks/useAppDispatch"
-import { updateProfile, toggleIsEditing } from "../../../features/user/userSlice"
-import { selectUser } from "../../../utils/selectors"
 
 export type FormData = {
   firstName: string
@@ -13,7 +14,7 @@ export type FormData = {
 function ProfileForm() {
   const dispatch = useAppDispatch()
 
-  const { profile, isEditing } = useSelector(selectUser)
+  const { profile, isEditing } = useAppSelector(selectUser)
   const { firstName, lastName } = profile || {}
 
   const handleEditToggle = () => dispatch(toggleIsEditing())

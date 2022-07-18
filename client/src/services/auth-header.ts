@@ -1,9 +1,15 @@
-import authHelpers from "../utils/auth.helpers"
+const getToken = () => {
+  const token = sessionStorage.getItem("token") || localStorage.getItem("token")
+  return token || null
+}
 
-export default function authHeader() {
-  const token = authHelpers.getToken()
+function authHeader() {
+  const token = getToken()
   if (token) {
     return { Authorization: `Bearer ${token}` }
   }
   return null
 }
+
+export default authHeader
+export { getToken }

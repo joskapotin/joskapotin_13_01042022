@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import userService from "~/services/user.service"
+
 import type { AxiosError } from "axios"
-import userService from "../../services/user.service"
-import type { FormData } from "../../components/pages/Profile/ProfileForm"
-import type { Profile } from "../../services/user.service"
+import type { FormData } from "~/pages/Profile/ProfileForm"
+import type { Profile } from "~/services/user.service"
 
 export type UserState = {
   isLoading: boolean
