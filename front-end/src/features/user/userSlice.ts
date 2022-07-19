@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import userService from "~/services/user.service"
 
 import type { AxiosError } from "axios"
-import type { FormData } from "~/pages/Profile/ProfileForm"
+import type { FormData } from "~/components/ProfileForm/ProfileForm"
 import type { Profile } from "~/services/user.service"
 
 export type UserState = {

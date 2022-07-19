@@ -1,6 +1,6 @@
 const getToken = () => {
   const token = sessionStorage.getItem("token") || localStorage.getItem("token")
-  return token || null
+  return token
 }
 
 function authHeader() {
@@ -8,7 +8,6 @@ function authHeader() {
   if (token) {
     return { Authorization: `Bearer ${token}` }
   }
-  return null
 }
 
 export default authHeader

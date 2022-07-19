@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import ROUTES from "~/constants/routes"
 import useAppSelector from "~/hooks/useAppSelector"
 import { selectAuth } from "~/utils/selectors"
-import SignInForm from "./SignInForm"
+import SignInForm from "~/components/SignInForm/SignInForm"
 
 function SignIn() {
   const { isAuth, isLoading, message } = useAppSelector(selectAuth)

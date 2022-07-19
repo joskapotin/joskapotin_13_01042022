@@ -16,6 +16,13 @@ export interface LoginResponse {
 
 export type LoginFunction = (props: LoginProps) => Promise<LoginResponse>
 
+export interface LogoutResponse {
+  status: string
+  message: string
+}
+
+export type LogoutFunction = () => Promise<LogoutResponse>
+
 const login: LoginFunction = async ({ email, password }) => {
   const response = await axios({
     method: "post",
@@ -25,10 +32,15 @@ const login: LoginFunction = async ({ email, password }) => {
   return response.data
 }
 
-const logout = () => {
-  sessionStorage.removeItem("token")
-  localStorage.removeItem("token")
-  window.location.reload()
+const logout: LogoutFunction = async () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      sessionStorage.removeItem("token")
+      localStorage.removeItem("token")
+      window.location.reload()
+      resolve({ status: "success", message: "Logout successful" })
+    }, 300)
+  })
 }
 
 const authService = {

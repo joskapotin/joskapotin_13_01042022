@@ -1,6 +1,6 @@
 import useAppSelector from "~/hooks/useAppSelector"
 import { selectUser } from "~/utils/selectors"
-import ProfileForm from "./ProfileForm"
+import ProfileForm from "~/components/ProfileForm/ProfileForm"
 
 function Profile() {
   const { profile, isLoading, isError, message } = useAppSelector(selectUser)
