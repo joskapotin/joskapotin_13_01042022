@@ -42,7 +42,6 @@ const getProfile: GetProfileFunction = async () => {
     url: `${API_URL}/profile`,
     headers,
   })
-  console.log(response)
   return response.data
 }
 

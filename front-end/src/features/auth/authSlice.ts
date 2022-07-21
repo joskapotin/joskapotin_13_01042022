@@ -1,6 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { persistor } from "~/store"
-import { getProfile } from "~/features/user/userSlice"
 import authService from "~/services/auth.service"
 import { getToken } from "~/services/auth-header"
 
@@ -39,16 +37,13 @@ const login = createAsyncThunk<string, FormData, { rejectValue: string }>("auth/
       switch (rememberMe) {
         case true:
           localStorage.setItem("token", token)
-          persistor.persist()
           break
         case false:
           sessionStorage.setItem("token", token)
-          persistor.pause()
           break
         default:
           break
       }
-      thunkAPI.dispatch(getProfile())
     }
 
     return message
