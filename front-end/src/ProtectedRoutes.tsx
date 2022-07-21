@@ -12,11 +12,14 @@ export type ProtectedRouteProps = {
 /**
  * If the user is authenticated, render the element, otherwise redirect to the home page
  */
-function ProtectedRoute({ element, redirectTo }: ProtectedRouteProps) {
+function ProtectedRoute({ element, redirectTo = ROUTES.HOME }: ProtectedRouteProps) {
   const isAuth = useAppSelector(selectIsAuth)
   const location = useLocation()
 
-  return isAuth ? element : <Navigate replace state={{ from: location }} to={redirectTo} />
+  if (isAuth) {
+    return element
+  }
+  return <Navigate replace state={{ from: location }} to={redirectTo} />
 }
 
 export default ProtectedRoute

@@ -34,7 +34,7 @@ const initialState: UserState = {
   isEditing: false,
 }
 
-export const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: ProfileError }>(
+const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: ProfileError }>(
   "user/getProfile",
   async (_, thunkAPI) => {
     try {
@@ -49,7 +49,7 @@ export const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: 
   },
 )
 
-export const updateProfile = createAsyncThunk<ProfileSuccess, FormData, { rejectValue: ProfileError }>(
+const updateProfile = createAsyncThunk<ProfileSuccess, FormData, { rejectValue: string }>(
   "user/updateProfile",
   async (formData, thunkAPI) => {
     try {
@@ -100,8 +100,15 @@ const userSlice = createSlice({
       state.isError = true
       state.message = payload
     })
+    builder.addCase("auth/logout/fulfilled", state => {
+      state.isLoading = false
+      state.isError = false
+      state.profile = undefined
+      state.message = undefined
+    })
   },
 })
 
 export default userSlice.reducer
+export { getProfile, updateProfile }
 export const { toggleIsEditing } = userSlice.actions

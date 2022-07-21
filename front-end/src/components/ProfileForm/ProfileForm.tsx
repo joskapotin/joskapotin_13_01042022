@@ -5,6 +5,7 @@ import { updateProfile, toggleIsEditing } from "~/features/user/userSlice"
 import { selectUser } from "~/utils/selectors"
 
 import type { SubmitHandler } from "react-hook-form"
+import type { Profile } from "~/services/user.service"
 
 export type FormData = {
   firstName: string
@@ -15,9 +16,10 @@ function ProfileForm() {
   const dispatch = useAppDispatch()
 
   const { profile, isEditing } = useAppSelector(selectUser)
-  const { firstName, lastName } = profile || {}
+  const { firstName, lastName } = profile as Profile
 
   const handleEditToggle = () => dispatch(toggleIsEditing())
+
   const handleSaveProfile = (formData: FormData) => dispatch(updateProfile(formData))
 
   const {

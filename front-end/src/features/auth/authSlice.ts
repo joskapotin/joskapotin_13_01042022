@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import store from "~/store"
 import { getProfile } from "~/features/user/userSlice"
 import authService from "~/services/auth.service"
 import { getToken } from "~/services/auth-header"
@@ -44,7 +43,7 @@ const login = createAsyncThunk<string, FormData, { rejectValue: string }>("auth/
         default:
           break
       }
-      store.dispatch(getProfile())
+      thunkAPI.dispatch(getProfile())
     }
 
     return message
@@ -60,6 +59,7 @@ const logout = createAsyncThunk<string, void, { rejectValue: string }>("auth/log
   try {
     const data = await authService.logout()
     const { message } = data
+
     return message
   } catch (err) {
     const error = err as Error

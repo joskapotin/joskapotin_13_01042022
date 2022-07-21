@@ -37,7 +37,6 @@ const logout: LogoutFunction = async () => {
     setTimeout(() => {
       sessionStorage.removeItem("token")
       localStorage.removeItem("token")
-      window.location.reload()
       resolve({ status: "success", message: "Logout successful" })
     }, 300)
   })

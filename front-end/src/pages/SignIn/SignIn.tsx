@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import ROUTES from "~/constants/routes"
 import useAppSelector from "~/hooks/useAppSelector"
@@ -8,9 +9,11 @@ function SignIn() {
   const { isAuth, isLoading, message } = useAppSelector(selectAuth)
   const navigate = useNavigate()
 
-  if (isAuth) {
-    navigate(ROUTES.PROFILE)
-  }
+  useEffect(() => {
+    if (isAuth) {
+      navigate(ROUTES.PROFILE)
+    }
+  }, [isAuth, navigate])
 
   return (
     <main className="main bg-dark">

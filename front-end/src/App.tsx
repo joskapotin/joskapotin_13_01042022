@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react"
 import { Routes, Route } from "react-router-dom"
 import ROUTES from "~/constants/routes"
-import MainNav from "~/components/MainNav/MainNav"
+import Header from "~/components/Header/Header"
 import Footer from "~/components/Footer/Footer"
 import ProtectedRoute from "~/ProtectedRoutes"
 
@@ -12,13 +12,13 @@ const Profile = lazy(() => import("~/pages/Profile/Profile"))
 function App() {
   return (
     <div className="App">
-      <MainNav />
+      <Header />
 
       <Suspense>
         <Routes>
           <Route path={ROUTES.HOME} element={<Home />} />
           <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
-          <Route path={ROUTES.PROFILE} element={<ProtectedRoute element={<Profile />} redirectTo={ROUTES.HOME} />} />
+          <Route path={ROUTES.PROFILE} element={<ProtectedRoute element={<Profile />} />} />
         </Routes>
       </Suspense>
 

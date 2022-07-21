@@ -6,10 +6,10 @@ import { logout } from "~/features/auth/authSlice"
 import { selectIsAuth, selectFirstName } from "~/utils/selectors"
 import argentLogo from "~/assets/img/argentBankLogo.png"
 
-function MainNav() {
+function Header() {
+  const dispatch = useAppDispatch()
   const isAuth = useAppSelector(selectIsAuth)
   const firstName = useAppSelector(selectFirstName)
-  const dispatch = useAppDispatch()
 
   const handleSignOut = () => {
     dispatch(logout())
@@ -45,4 +45,4 @@ function MainNav() {
   )
 }
 
-export default MainNav
+export default Header
