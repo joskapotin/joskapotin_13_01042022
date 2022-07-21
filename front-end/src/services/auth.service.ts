@@ -6,7 +6,7 @@ export type LoginProps = {
   password: string
 }
 
-export interface LoginResponse {
+export type LoginResponse = {
   status: string
   message: string
   body?: {
@@ -16,7 +16,7 @@ export interface LoginResponse {
 
 export type LoginFunction = (props: LoginProps) => Promise<LoginResponse>
 
-export interface LogoutResponse {
+export type LogoutResponse = {
   status: string
   message: string
 }

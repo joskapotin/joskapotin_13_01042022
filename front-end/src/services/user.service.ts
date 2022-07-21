@@ -37,30 +37,25 @@ export type UpdateProfileFunction = (profile: UpdateProfileProps) => Promise<Upd
 // Get user profile
 const getProfile: GetProfileFunction = async () => {
   const headers = authHeader()
-  if (headers) {
-    const response = await axios({
-      method: "post",
-      url: `${API_URL}/profile`,
-      headers,
-    })
-    return response.data
-  }
-  return Promise.reject(new Error("No token"))
+  const response = await axios({
+    method: "post",
+    url: `${API_URL}/profile`,
+    headers,
+  })
+  console.log(response)
+  return response.data
 }
 
 // Update user profile
 const updateProfile: UpdateProfileFunction = async profile => {
   const headers = authHeader()
-  if (headers) {
-    const response = await axios({
-      method: "put",
-      url: `${API_URL}/profile`,
-      headers,
-      data: profile,
-    })
-    return response.data
-  }
-  return Promise.reject(new Error("No token"))
+  const response = await axios({
+    method: "put",
+    url: `${API_URL}/profile`,
+    headers,
+    data: profile,
+  })
+  return response.data
 }
 
 const userService = {

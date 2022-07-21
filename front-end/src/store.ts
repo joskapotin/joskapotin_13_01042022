@@ -27,6 +27,10 @@ const store = configureStore({
     }),
 })
 
+const persistoreOptions = {
+  manualPersist: true,
+}
+
 const persistor = persistStore(store)
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

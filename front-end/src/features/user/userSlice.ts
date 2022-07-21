@@ -43,7 +43,7 @@ const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: Profile
       return { message, profile }
     } catch (err) {
       const error = err as CustomError
-      const message = error.response.data.message || error.message
+      const message = error.response.data.message
       return thunkAPI.rejectWithValue(message)
     }
   },
@@ -58,7 +58,7 @@ const updateProfile = createAsyncThunk<ProfileSuccess, FormData, { rejectValue: 
       return { message, profile }
     } catch (err) {
       const error = err as CustomError
-      const message = error.response.data.message || error.message
+      const message = error.response.data.message
       return thunkAPI.rejectWithValue(message)
     }
   },
@@ -103,6 +103,7 @@ const userSlice = createSlice({
     builder.addCase("auth/logout/fulfilled", state => {
       state.isLoading = false
       state.isError = false
+      state.isEditing = false
       state.profile = undefined
       state.message = undefined
     })

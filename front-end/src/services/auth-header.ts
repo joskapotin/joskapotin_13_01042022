@@ -1,6 +1,5 @@
 const getToken = () => {
-  const token = sessionStorage.getItem("token") || localStorage.getItem("token")
-  return token
+  return sessionStorage.getItem("token") || localStorage.getItem("token")
 }
 
 function authHeader() {

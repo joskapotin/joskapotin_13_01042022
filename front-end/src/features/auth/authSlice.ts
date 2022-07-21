@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { persistor } from "~/store"
 import { getProfile } from "~/features/user/userSlice"
 import authService from "~/services/auth.service"
 import { getToken } from "~/services/auth-header"
@@ -8,6 +9,7 @@ import type { FormData } from "~/components/SignInForm/SignInForm"
 
 export type AuthState = {
   isLoading: boolean
+  isError: boolean
   isAuth: boolean
   message?: string
 }
@@ -21,6 +23,7 @@ export interface CustomError extends Error {
 
 const initialState: AuthState = {
   isLoading: false,
+  isError: false,
   isAuth: !!getToken(),
 }
 
@@ -36,9 +39,11 @@ const login = createAsyncThunk<string, FormData, { rejectValue: string }>("auth/
       switch (rememberMe) {
         case true:
           localStorage.setItem("token", token)
+          persistor.persist()
           break
         case false:
           sessionStorage.setItem("token", token)
+          persistor.pause()
           break
         default:
           break
@@ -55,12 +60,9 @@ const login = createAsyncThunk<string, FormData, { rejectValue: string }>("auth/
 })
 
 // Logout user
-const logout = createAsyncThunk<string, void, { rejectValue: string }>("auth/logout", async (_, thunkAPI) => {
+const logout = createAsyncThunk<void, void, { rejectValue: string }>("auth/logout", async (_, thunkAPI) => {
   try {
-    const data = await authService.logout()
-    const { message } = data
-
-    return message
+    await authService.logout()
   } catch (err) {
     const error = err as Error
     const message = error.message
@@ -76,13 +78,15 @@ const authSlice = createSlice({
     builder.addCase(logout.pending, state => {
       state.isLoading = true
     })
-    builder.addCase(logout.fulfilled, (state, { payload }) => {
+    builder.addCase(logout.fulfilled, state => {
       state.isLoading = false
+      state.isError = false
       state.isAuth = false
-      state.message = payload
+      state.message = undefined
     })
     builder.addCase(logout.rejected, (state, { payload }) => {
       state.isLoading = false
+      state.isError = true
       state.message = payload
     })
     builder.addCase(login.pending, state => {
