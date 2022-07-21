@@ -35,7 +35,6 @@ const login: LoginFunction = async ({ email, password }) => {
 const logout: LogoutFunction = async () => {
   return new Promise(resolve => {
     setTimeout(() => {
-      sessionStorage.removeItem("token")
       localStorage.removeItem("token")
       resolve({ status: "success", message: "Logout successful" })
     }, 300)

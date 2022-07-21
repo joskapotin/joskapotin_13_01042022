@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import authService from "~/services/auth.service"
-import { getToken } from "~/services/auth-header"
+import itemStorage from "~/utils/itemStorage.helpers"
 
 import type { AxiosError } from "axios"
 import type { FormData } from "~/components/SignInForm/SignInForm"
@@ -22,8 +22,11 @@ export interface CustomError extends Error {
 const initialState: AuthState = {
   isLoading: false,
   isError: false,
-  isAuth: !!getToken(),
+  isAuth: !!itemStorage.getWithExpiry("token"),
 }
+
+const weekDuration = 60 * 60 * 24 * 7
+const dayDuration = 60 * 60 * 24
 
 // Login user
 const login = createAsyncThunk<string, FormData, { rejectValue: string }>("auth/login", async (formData, thunkAPI) => {
@@ -36,10 +39,10 @@ const login = createAsyncThunk<string, FormData, { rejectValue: string }>("auth/
     if (token) {
       switch (rememberMe) {
         case true:
-          localStorage.setItem("token", token)
+          itemStorage.setWithExpiry({ key: "token", value: token, ttl: weekDuration }) // 1 week
           break
         case false:
-          sessionStorage.setItem("token", token)
+          itemStorage.setWithExpiry({ key: "token", value: token, ttl: dayDuration }) // 1 day
           break
         default:
           break

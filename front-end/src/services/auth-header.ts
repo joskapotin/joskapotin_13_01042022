@@ -1,13 +1,10 @@
-const getToken = () => {
-  return sessionStorage.getItem("token") || localStorage.getItem("token")
-}
+import itemStorage from "~/utils/itemStorage.helpers"
 
 function authHeader() {
-  const token = getToken()
+  const token = itemStorage.getWithExpiry("token")
   if (token) {
     return { Authorization: `Bearer ${token}` }
   }
 }
 
 export default authHeader
-export { getToken }
