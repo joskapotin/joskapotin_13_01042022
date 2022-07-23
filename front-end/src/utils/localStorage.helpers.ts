@@ -28,9 +28,4 @@ function getWithExpiry(key: string): string | null {
   return item.value
 }
 
-const itemStorage = {
-  setWithExpiry,
-  getWithExpiry,
-}
-
-export default itemStorage
+export { setWithExpiry, getWithExpiry }

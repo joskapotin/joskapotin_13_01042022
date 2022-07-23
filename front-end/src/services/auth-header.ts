@@ -1,7 +1,7 @@
-import itemStorage from "~/utils/itemStorage.helpers"
+import { getWithExpiry } from "~/utils/localStorage.helpers"
 
 function authHeader() {
-  const token = itemStorage.getWithExpiry("token")
+  const token = getWithExpiry("token")
   if (token) {
     return { Authorization: `Bearer ${token}` }
   }
