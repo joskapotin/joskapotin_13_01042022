@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
-import ROUTES from "~/constants/routes"
+import CONSTANTS from "~/constants/constants"
 import useAppDispatch from "~/hooks/useAppDispatch"
 import useAppSelector from "~/hooks/useAppSelector"
 import { selectIsAuth } from "~/utils/selectors"
@@ -29,9 +29,9 @@ function App() {
 
       <Suspense>
         <Routes>
-          <Route path={ROUTES.HOME} element={<Home />} />
-          <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
-          <Route path={ROUTES.PROFILE} element={<ProtectedRoute element={<Profile />} />} />
+          <Route path={CONSTANTS.ROUTES.HOME} element={<Home />} />
+          <Route path={CONSTANTS.ROUTES.SIGN_IN} element={<SignIn />} />
+          <Route path={CONSTANTS.ROUTES.PROFILE} element={<ProtectedRoute element={<Profile />} />} />
         </Routes>
       </Suspense>
 

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import CONSTANTS from "~/constants/constants"
 import authService from "~/services/auth.service"
 import { getWithExpiry, setWithExpiry } from "~/utils/localStorage.helpers"
 
@@ -22,7 +23,7 @@ export interface CustomError extends Error {
 const initialState: AuthState = {
   isLoading: false,
   isError: false,
-  isAuth: !!getWithExpiry("token"),
+  isAuth: !!getWithExpiry(CONSTANTS.TOKEN),
 }
 
 const weekDuration = 60 * 60 * 24 * 7
@@ -39,13 +40,10 @@ const login = createAsyncThunk<string, FormData, { rejectValue: string }>("auth/
     if (token) {
       switch (rememberMe) {
         case true:
-          setWithExpiry({ key: "token", value: token, ttl: weekDuration }) // 1 week
-          break
-        case false:
-          setWithExpiry({ key: "token", value: token, ttl: dayDuration }) // 1 day
+          setWithExpiry({ key: CONSTANTS.TOKEN, value: token, ttl: weekDuration }) // 1 week
           break
         default:
-          break
+          setWithExpiry({ key: CONSTANTS.TOKEN, value: token, ttl: dayDuration }) // 1 day
       }
     }
 

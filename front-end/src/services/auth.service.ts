@@ -1,5 +1,5 @@
 import axios from "axios"
-import API_URL from "~/constants/api"
+import CONSTANTS from "~/constants/constants"
 
 export type LoginProps = {
   email: string
@@ -26,7 +26,7 @@ export type LogoutFunction = () => Promise<LogoutResponse>
 const login: LoginFunction = async ({ email, password }) => {
   const response = await axios({
     method: "post",
-    url: `${API_URL}/login`,
+    url: `${CONSTANTS.API_URL}/login`,
     data: { email, password },
   })
   return response.data

@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import ROUTES from "~/constants/routes"
+import CONSTANTS from "~/constants/constants"
 import useAppSelector from "~/hooks/useAppSelector"
 import { selectAuth } from "~/utils/selectors"
 import SignInForm from "~/components/SignInForm/SignInForm"
@@ -11,7 +11,7 @@ function SignIn() {
 
   useEffect(() => {
     if (isAuth) {
-      navigate(ROUTES.PROFILE)
+      navigate(CONSTANTS.ROUTES.PROFILE)
     }
   }, [isAuth, navigate])
 

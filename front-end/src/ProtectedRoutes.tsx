@@ -1,18 +1,18 @@
 import { useLocation, Navigate } from "react-router-dom"
 import PropTypes from "prop-types"
-import ROUTES from "./constants/routes"
+import CONSTANTS from "./constants/constants"
 import useAppSelector from "./hooks/useAppSelector"
 import { selectIsAuth } from "./utils/selectors"
 
 export type ProtectedRouteProps = {
   element: JSX.Element
-  redirectTo: ROUTES
+  redirectTo: typeof CONSTANTS.ROUTES[keyof typeof CONSTANTS.ROUTES]
 }
 
 /**
  * If the user is authenticated, render the element, otherwise redirect to the home page
  */
-function ProtectedRoute({ element, redirectTo = ROUTES.HOME }: ProtectedRouteProps) {
+function ProtectedRoute({ element, redirectTo = CONSTANTS.ROUTES.HOME }: ProtectedRouteProps) {
   const isAuth = useAppSelector(selectIsAuth)
   const location = useLocation()
 
@@ -25,7 +25,7 @@ function ProtectedRoute({ element, redirectTo = ROUTES.HOME }: ProtectedRoutePro
 export default ProtectedRoute
 
 ProtectedRoute.defaultProps = {
-  redirectTo: ROUTES.HOME,
+  redirectTo: CONSTANTS.ROUTES.HOME,
 }
 
 ProtectedRoute.propTypes = {

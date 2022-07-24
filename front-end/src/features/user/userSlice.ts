@@ -8,9 +8,9 @@ import type { Profile } from "~/services/user.service"
 export type UserState = {
   isLoading: boolean
   isError: boolean
-  profile?: Profile
+  profile?: Profile | null
   isEditing: boolean
-  message?: string
+  message?: string | null
 }
 
 export type ProfileSuccess = {
@@ -104,8 +104,8 @@ const userSlice = createSlice({
       state.isLoading = false
       state.isError = false
       state.isEditing = false
-      state.profile = undefined
-      state.message = undefined
+      state.profile = null
+      state.message = null
     })
   },
 })
