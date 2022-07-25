@@ -23,15 +23,13 @@ function App() {
   }, [dispatch, isAuth])
 
   return (
-    <div className="app">
-      <Suspense>
-        <Routes>
-          <Route path={CONSTANTS.ROUTES.HOME} element={<Home />} />
-          <Route path={CONSTANTS.ROUTES.SIGN_IN} element={<SignIn />} />
-          <Route path={CONSTANTS.ROUTES.PROFILE} element={<ProtectedRoute element={<Profile />} />} />
-        </Routes>
-      </Suspense>
-    </div>
+    <Suspense>
+      <Routes>
+        <Route path={CONSTANTS.ROUTES.HOME} element={<Home />} />
+        <Route path={CONSTANTS.ROUTES.SIGN_IN} element={<SignIn />} />
+        <Route path={CONSTANTS.ROUTES.PROFILE} element={<ProtectedRoute element={<Profile />} />} />
+      </Routes>
+    </Suspense>
   )
 }
 

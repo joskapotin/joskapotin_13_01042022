@@ -14,7 +14,7 @@ function Main({ children, bgDark }: MainProps) {
   return (
     <>
       <Header />
-      <main className={`main ${bgDark && "bg-dark"}`}>{children}</main>
+      <main className={`main ${bgDark ? "bg-dark" : "bg-light"}`}>{children}</main>
       <Footer />
     </>
   )
