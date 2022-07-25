@@ -1,8 +1,6 @@
-import axios from "axios"
 import type { AxiosResponse } from "axios"
 
-import CONSTANTS from "../constants"
-import authHeader from "../services/auth-header"
+import axiosInstance from "./api"
 
 export type Profile = {
   email: string
@@ -34,32 +32,20 @@ export interface UpdateProfileResponse extends AxiosResponse {
 
 export type UpdateProfileFunction = (profile: UpdateProfileProps) => Promise<UpdateProfileResponse>
 
-/* const userService = (callback: any)=>{
-  const headers = authHeader()
-  if (!headers) return { message: "Please login" }
-  return callback(headers)
-} */
-
 // Get user profile
 const getProfile: GetProfileFunction = async () => {
-  const headers = authHeader()
-  if (!headers) return { message: "Please login" }
-  const response = await axios({
+  const response = await axiosInstance({
     method: "post",
-    url: `${CONSTANTS.API_URL}/profile`,
-    headers,
+    url: "profile",
   })
   return response.data
 }
 
 // Update user profile
 const updateProfile: UpdateProfileFunction = async profile => {
-  const headers = authHeader()
-  if (!headers) return { message: "Please login" }
-  const response = await axios({
+  const response = await axiosInstance({
     method: "put",
-    url: `${CONSTANTS.API_URL}/profile`,
-    headers,
+    url: "profile",
     data: profile,
   })
   return response.data

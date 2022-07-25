@@ -4,7 +4,7 @@ import type { AxiosError } from "axios"
 import CONSTANTS from "../../constants"
 import { getWithExpiry, setWithExpiry } from "../../helpers/localStorage"
 import type { FormData } from "../../pages/signIn/signInForm"
-import authService from "../../services/auth"
+import authService from "../../services/auth.service"
 
 export type AuthState = {
   isLoading: boolean

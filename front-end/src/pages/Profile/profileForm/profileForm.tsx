@@ -5,7 +5,7 @@ import { toggleIsEditing, updateProfile } from "../../../features/user/userSlice
 import { selectUser } from "../../../helpers/selectors"
 import useAppDispatch from "../../../hooks/useAppDispatch"
 import useAppSelector from "../../../hooks/useAppSelector"
-import type { Profile } from "../../../services/user"
+import type { Profile } from "../../../services/user.service"
 
 import "./profileForm.css"
 

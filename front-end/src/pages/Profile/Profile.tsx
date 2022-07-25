@@ -9,10 +9,16 @@ import "./profile.css"
 function Profile() {
   const { profile, isLoading, isError, message } = useAppSelector(selectUser)
 
+  if (isLoading) {
+    return <MainLayout>Loading...</MainLayout>
+  }
+
+  if (isError) {
+    return <MainLayout>{message}</MainLayout>
+  }
+
   return (
     <MainLayout bgDark>
-      {isLoading && <p>isLoading...</p>}
-      {isError && <p>{message}</p>}
       <div className="header">
         <h1>
           Welcome back

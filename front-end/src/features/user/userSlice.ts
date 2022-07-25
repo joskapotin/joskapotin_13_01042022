@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import type { AxiosError } from "axios"
 
 import type { FormData } from "../../pages/profile/profileForm"
-import userService from "../../services/user"
-import type { Profile } from "../../services/user"
+import userService from "../../services/user.service"
+import type { Profile } from "../../services/user.service"
 
 export type UserState = {
   isLoading: boolean
@@ -32,6 +32,8 @@ const initialState: UserState = {
   isLoading: false,
   isError: false,
   isEditing: false,
+  profile: null,
+  message: null,
 }
 
 const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: ProfileError }>(
@@ -57,8 +59,10 @@ const updateProfile = createAsyncThunk<ProfileSuccess, FormData, { rejectValue: 
       const { message, body: profile } = data
       return { message, profile }
     } catch (err) {
+      console.log(err)
       const error = err as CustomError
       const message = error.response.data.message
+
       return thunkAPI.rejectWithValue(message)
     }
   },
