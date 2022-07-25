@@ -1,12 +1,16 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import CONSTANTS from "~/constants/constants"
-import useAppSelector from "~/hooks/useAppSelector"
-import { selectAuth } from "~/utils/selectors"
-import SignInForm from "~/components/SignInForm/SignInForm"
+
+import CONSTANTS from "../../constants"
+import { selectAuth } from "../../helpers/selectors"
+import useAppSelector from "../../hooks/useAppSelector"
+import MainLayout from "../../layouts/main"
+import SignInForm from "../../pages/signIn/signInForm"
+
+import "./signIn.css"
 
 function SignIn() {
-  const { isAuth, isLoading, message } = useAppSelector(selectAuth)
+  const { isAuth, isLoading, isError, message } = useAppSelector(selectAuth)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,15 +20,15 @@ function SignIn() {
   }, [isAuth, navigate])
 
   return (
-    <main className="main bg-dark">
+    <MainLayout bgDark>
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon" />
         <h1>Sign In</h1>
         {isLoading && <p className="loading">Loading...</p>}
-        {message && <p className="error">{message}</p>}
+        {isError && message && <p className="error">{message}</p>}
         <SignInForm />
       </section>
-    </main>
+    </MainLayout>
   )
 }
 

@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form"
 import type { SubmitHandler } from "react-hook-form"
-import useAppDispatch from "~/hooks/useAppDispatch"
-import { login } from "~/features/auth/authSlice"
+
+import { login } from "../../../features/auth/authSlice"
+import useAppDispatch from "../../../hooks/useAppDispatch"
+
+import "./signInForm.css"
 
 export type FormData = {
   email: string

@@ -1,10 +1,10 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import CONSTANTS from "~/constants/constants"
-import authService from "~/services/auth.service"
-import { getWithExpiry, setWithExpiry } from "~/utils/localStorage.helpers"
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import type { AxiosError } from "axios"
-import type { FormData } from "~/components/SignInForm/SignInForm"
+
+import CONSTANTS from "../../constants"
+import { getWithExpiry, setWithExpiry } from "../../helpers/localStorage"
+import type { FormData } from "../../pages/signIn/signInForm"
+import authService from "../../services/auth"
 
 export type AuthState = {
   isLoading: boolean

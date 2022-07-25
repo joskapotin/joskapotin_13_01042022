@@ -1,10 +1,11 @@
-import React from "react"
-import ReactDOM from "react-dom/client"
-import { BrowserRouter as Router } from "react-router-dom"
+import * as React from "react"
+import * as ReactDOM from "react-dom/client"
 import { Provider } from "react-redux"
+import { BrowserRouter as Router } from "react-router-dom"
+
+import App from "./app"
 import store from "./store"
-import App from "./App"
-import "./index.css"
+import "./styles/index.css"
 
 const rootDiv = document.getElementById("root")
 if (rootDiv) {

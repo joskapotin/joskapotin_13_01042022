@@ -1,17 +1,16 @@
-import { lazy, Suspense, useEffect } from "react"
-import { Routes, Route } from "react-router-dom"
-import CONSTANTS from "~/constants/constants"
-import useAppDispatch from "~/hooks/useAppDispatch"
-import useAppSelector from "~/hooks/useAppSelector"
-import { selectIsAuth } from "~/utils/selectors"
-import { getProfile } from "./features/user/userSlice"
-import Header from "~/components/Header/Header"
-import Footer from "~/components/Footer/Footer"
-import ProtectedRoute from "~/ProtectedRoutes"
+import { Suspense, lazy, useEffect } from "react"
+import { Route, Routes } from "react-router-dom"
 
-const Home = lazy(() => import("~/pages/Home/Home"))
-const SignIn = lazy(() => import("~/pages/SignIn/SignIn"))
-const Profile = lazy(() => import("~/pages/Profile/Profile"))
+import CONSTANTS from "./constants"
+import { getProfile } from "./features/user/userSlice"
+import { selectIsAuth } from "./helpers/selectors"
+import useAppDispatch from "./hooks/useAppDispatch"
+import useAppSelector from "./hooks/useAppSelector"
+import ProtectedRoute from "./ProtectedRoutes"
+
+const Home = lazy(() => import("./pages/home"))
+const SignIn = lazy(() => import("./pages/signIn"))
+const Profile = lazy(() => import("./pages/profile"))
 
 function App() {
   const dispatch = useAppDispatch()
@@ -24,9 +23,7 @@ function App() {
   }, [dispatch, isAuth])
 
   return (
-    <div className="App">
-      <Header />
-
+    <div className="app">
       <Suspense>
         <Routes>
           <Route path={CONSTANTS.ROUTES.HOME} element={<Home />} />
@@ -34,8 +31,6 @@ function App() {
           <Route path={CONSTANTS.ROUTES.PROFILE} element={<ProtectedRoute element={<Profile />} />} />
         </Routes>
       </Suspense>
-
-      <Footer />
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import axios from "axios"
-import CONSTANTS from "~/constants/constants"
+
+import CONSTANTS from "../constants"
 
 export type LoginProps = {
   email: string

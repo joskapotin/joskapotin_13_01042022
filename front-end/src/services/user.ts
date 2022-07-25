@@ -1,8 +1,8 @@
 import axios from "axios"
-import CONSTANTS from "~/constants/constants"
-import authHeader from "./auth-header"
-
 import type { AxiosResponse } from "axios"
+
+import CONSTANTS from "../constants"
+import authHeader from "../services/auth-header"
 
 export type Profile = {
   email: string

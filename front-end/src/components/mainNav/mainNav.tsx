@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom"
-import CONSTANTS from "~/constants/constants"
-import useAppSelector from "~/hooks/useAppSelector"
-import useAppDispatch from "~/hooks/useAppDispatch"
-import { logout } from "~/features/auth/authSlice"
-import { selectIsAuth, selectFirstName } from "~/utils/selectors"
-import argentLogo from "~/assets/img/argentBankLogo.png"
 
-function Header() {
+import argentLogo from "../../assets/images/argentBankLogo.png"
+import CONSTANTS from "../../constants"
+import { logout } from "../../features/auth/authSlice"
+import { selectFirstName, selectIsAuth } from "../../helpers/selectors"
+import useAppDispatch from "../../hooks/useAppDispatch"
+import useAppSelector from "../../hooks/useAppSelector"
+
+import "./mainNav.css"
+
+function MainNav() {
   const dispatch = useAppDispatch()
   const isAuth = useAppSelector(selectIsAuth)
   const firstName = useAppSelector(selectFirstName)
@@ -45,4 +48,4 @@ function Header() {
   )
 }
 
-export default Header
+export default MainNav
