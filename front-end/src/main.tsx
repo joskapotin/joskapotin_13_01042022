@@ -7,16 +7,14 @@ import App from "./app"
 import store from "./store"
 import "./styles/index.css"
 
-const rootDiv = document.getElementById("root")
-if (rootDiv) {
-  const root = ReactDOM.createRoot(rootDiv)
-  root.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <Router>
-          <App />
-        </Router>
-      </Provider>
-    </React.StrictMode>,
-  )
-}
+const rootDiv = document.getElementById("root") as HTMLElement
+const root = ReactDOM.createRoot(rootDiv)
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </React.StrictMode>,
+)
