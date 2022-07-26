@@ -9,7 +9,7 @@ import type { Profile } from "../../../services/user.service"
 
 import "./profileForm.css"
 
-export type FormData = {
+export interface FormData {
   firstName: string
   lastName: string
 }

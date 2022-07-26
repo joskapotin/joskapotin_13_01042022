@@ -5,7 +5,7 @@ import type { FormData } from "../../pages/profile/profileForm"
 import userService from "../../services/user.service"
 import type { Profile } from "../../services/user.service"
 
-export type UserState = {
+export interface UserState {
   isLoading: boolean
   isError: boolean
   profile?: Profile | null
@@ -13,7 +13,7 @@ export type UserState = {
   message?: string | null
 }
 
-export type ProfileSuccess = {
+export interface ProfileSuccess {
   message: string
   profile: Profile
 }

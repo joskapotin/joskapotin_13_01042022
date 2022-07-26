@@ -5,7 +5,7 @@ import CONSTANTS from "./constants"
 import { selectIsAuth } from "./helpers/selectors"
 import useAppSelector from "./hooks/useAppSelector"
 
-export type ProtectedRouteProps = {
+export interface ProtectedRouteProps {
   element: JSX.Element
   redirectTo: typeof CONSTANTS.ROUTES[keyof typeof CONSTANTS.ROUTES]
 }

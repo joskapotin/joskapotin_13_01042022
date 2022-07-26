@@ -6,7 +6,7 @@ import useAppDispatch from "../../../hooks/useAppDispatch"
 
 import "./signInForm.css"
 
-export type FormData = {
+export interface FormData {
   email: string
   password: string
   rememberMe: boolean
