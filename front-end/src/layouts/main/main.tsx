@@ -5,7 +5,7 @@ import Header from '../../components/mainNav'
 
 import './main.css'
 
-export interface MainProps {
+type MainProps = {
   children: React.ReactNode
   bgDark?: boolean
 }

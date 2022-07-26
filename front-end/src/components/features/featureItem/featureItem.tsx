@@ -2,7 +2,7 @@ import * as PropTypes from 'prop-types'
 
 import './featureItem.css'
 
-export interface FeatureItemProps {
+type FeatureItemProps = {
   image: string
   alt: string
   title: string

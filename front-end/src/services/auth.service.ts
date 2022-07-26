@@ -1,12 +1,12 @@
 import CONSTANTS from '../constants'
 import axiosInstance from './axiosInstance'
 
-export interface LoginProps {
+type LoginProps = {
   email: string
   password: string
 }
 
-export interface LoginResponse {
+type LoginResponse = {
   status: string
   message: string
   body?: {
@@ -14,14 +14,14 @@ export interface LoginResponse {
   }
 }
 
-export type LoginFunction = (props: LoginProps) => Promise<LoginResponse>
+type LoginFunction = (props: LoginProps) => Promise<LoginResponse>
 
-export interface LogoutResponse {
+type LogoutResponse = {
   status: string
   message: string
 }
 
-export type LogoutFunction = () => Promise<LogoutResponse>
+type LogoutFunction = () => Promise<LogoutResponse>
 
 const login: LoginFunction = async ({ email, password }) => {
   const response = await axiosInstance({

@@ -1,6 +1,6 @@
 import './hero.css'
 
-export interface HeroProps {
+type HeroProps = {
   children: React.ReactNode
 }
 

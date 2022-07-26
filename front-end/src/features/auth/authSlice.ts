@@ -6,13 +6,13 @@ import { getWithExpiry, setWithExpiry } from '../../helpers/localStorage'
 import type { FormData } from '../../pages/signIn/signInForm'
 import authService from '../../services/auth.service'
 
-export interface AuthState {
+type AuthState = {
   isLoading: boolean
   isError: boolean
   isAuth: boolean
   message?: string
 }
-export interface CustomError extends Error {
+interface CustomError extends Error {
   response: AxiosError & {
     data: {
       message: string

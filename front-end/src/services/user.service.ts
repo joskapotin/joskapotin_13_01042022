@@ -1,7 +1,7 @@
 import CONSTANTS from '../constants'
 import axiosInstance from './axiosInstance'
 
-export interface Profile {
+export type Profile = {
   email: string
   firstName: string
   lastName: string
@@ -10,26 +10,26 @@ export interface Profile {
   id: string
 }
 
-export interface GetProfileResponse {
+type GetProfileResponse = {
   status: number
   message: string
   body: Profile
 }
 
-export type GetProfileFunction = () => Promise<GetProfileResponse>
+type GetProfileFunction = () => Promise<GetProfileResponse>
 
-export type UpdateProfileProps = {
+type UpdateProfileProps = {
   firstName: string
   lastName: string
 }
 
-export interface UpdateProfileResponse {
+type UpdateProfileResponse = {
   status: number
   message: string
   body: Profile
 }
 
-export type UpdateProfileFunction = (profile: UpdateProfileProps) => Promise<UpdateProfileResponse>
+type UpdateProfileFunction = (profile: UpdateProfileProps) => Promise<UpdateProfileResponse>
 
 // Get user profile
 const getProfile: GetProfileFunction = async () => {

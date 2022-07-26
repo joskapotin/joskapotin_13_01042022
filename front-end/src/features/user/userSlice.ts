@@ -5,7 +5,7 @@ import type { FormData } from '../../pages/profile/profileForm'
 import userService from '../../services/user.service'
 import type { Profile } from '../../services/user.service'
 
-export interface UserState {
+type UserState = {
   isLoading: boolean
   isError: boolean
   profile?: Profile | null
@@ -13,14 +13,14 @@ export interface UserState {
   message?: string | null
 }
 
-export interface ProfileSuccess {
+type ProfileSuccess = {
   message: string
   profile: Profile
 }
 
-export type ProfileError = string
+type ProfileError = string
 
-export interface CustomError extends Error {
+interface CustomError {
   response: AxiosError & {
     data: {
       message: string

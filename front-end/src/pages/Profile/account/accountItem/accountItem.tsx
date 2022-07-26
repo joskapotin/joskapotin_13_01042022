@@ -2,7 +2,7 @@ import * as PropTypes from 'prop-types'
 
 import './accountItem.css'
 
-export interface AccountItemProps {
+type AccountItemProps = {
   title: string
   amount: string
   description: string
