@@ -1,16 +1,16 @@
-import { Suspense, lazy, useEffect } from "react"
-import { Route, Routes } from "react-router-dom"
+import { Suspense, lazy, useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
-import CONSTANTS from "./constants"
-import { getProfile } from "./features/user/userSlice"
-import { selectIsAuth } from "./helpers/selectors"
-import useAppDispatch from "./hooks/useAppDispatch"
-import useAppSelector from "./hooks/useAppSelector"
-import ProtectedRoute from "./ProtectedRoutes"
+import CONSTANTS from './constants'
+import { getProfile } from './features/user/userSlice'
+import { selectIsAuth } from './helpers/selectors'
+import useAppDispatch from './hooks/useAppDispatch'
+import useAppSelector from './hooks/useAppSelector'
+import ProtectedRoute from './ProtectedRoutes'
 
-const Home = lazy(() => import("./pages/home"))
-const SignIn = lazy(() => import("./pages/signIn"))
-const Profile = lazy(() => import("./pages/profile"))
+const Home = lazy(() => import('./pages/home'))
+const SignIn = lazy(() => import('./pages/signIn'))
+const Profile = lazy(() => import('./pages/profile'))
 
 function App() {
   const dispatch = useAppDispatch()

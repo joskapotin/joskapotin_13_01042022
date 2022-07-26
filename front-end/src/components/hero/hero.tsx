@@ -1,4 +1,4 @@
-import "./hero.css"
+import './hero.css'
 
 export interface HeroProps {
   children: React.ReactNode
@@ -6,8 +6,8 @@ export interface HeroProps {
 
 function Hero({ children }: HeroProps) {
   return (
-    <div className="hero">
-      <section className="hero-content">{children}</section>
+    <div className='hero'>
+      <section className='hero-content'>{children}</section>
     </div>
   )
 }

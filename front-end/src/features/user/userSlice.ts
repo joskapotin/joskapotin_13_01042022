@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import type { AxiosError } from "axios"
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import type { AxiosError } from 'axios'
 
-import type { FormData } from "../../pages/profile/profileForm"
-import userService from "../../services/user.service"
-import type { Profile } from "../../services/user.service"
+import type { FormData } from '../../pages/profile/profileForm'
+import userService from '../../services/user.service'
+import type { Profile } from '../../services/user.service'
 
 export interface UserState {
   isLoading: boolean
@@ -37,7 +37,7 @@ const initialState: UserState = {
 }
 
 const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: ProfileError }>(
-  "user/getProfile",
+  'user/getProfile',
   async (_, thunkAPI) => {
     try {
       const data = await userService.getProfile()
@@ -52,7 +52,7 @@ const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: Profile
 )
 
 const updateProfile = createAsyncThunk<ProfileSuccess, FormData, { rejectValue: string }>(
-  "user/updateProfile",
+  'user/updateProfile',
   async (formData, thunkAPI) => {
     try {
       const data = await userService.updateProfile(formData)
@@ -69,7 +69,7 @@ const updateProfile = createAsyncThunk<ProfileSuccess, FormData, { rejectValue: 
 )
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     toggleIsEditing: (state: UserState) => {
@@ -104,7 +104,7 @@ const userSlice = createSlice({
       state.isError = true
       state.message = payload
     })
-    builder.addCase("auth/logout/fulfilled", state => {
+    builder.addCase('auth/logout/fulfilled', state => {
       state.isLoading = false
       state.isError = false
       state.isEditing = false

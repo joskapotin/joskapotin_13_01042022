@@ -1,4 +1,4 @@
-import SignInForm from "./signInForm"
+import SignInForm from './signInForm'
 
 export default SignInForm
-export type { FormData } from "./signInForm"
+export type { FormData } from './signInForm'

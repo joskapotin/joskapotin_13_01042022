@@ -1,5 +1,5 @@
-import CONSTANTS from "../constants"
-import axiosInstance from "./axiosInstance"
+import CONSTANTS from '../constants'
+import axiosInstance from './axiosInstance'
 
 export interface LoginProps {
   email: string
@@ -25,7 +25,7 @@ export type LogoutFunction = () => Promise<LogoutResponse>
 
 const login: LoginFunction = async ({ email, password }) => {
   const response = await axiosInstance({
-    method: "post",
+    method: 'post',
     url: CONSTANTS.API_ENDPOINTS.LOGIN,
     data: { email, password },
   })
@@ -35,8 +35,8 @@ const login: LoginFunction = async ({ email, password }) => {
 const logout: LogoutFunction = async () => {
   return new Promise(resolve => {
     setTimeout(() => {
-      localStorage.removeItem("token")
-      resolve({ status: "success", message: "Logout successful" })
+      localStorage.removeItem('token')
+      resolve({ status: 'success', message: 'Logout successful' })
     }, 300)
   })
 }

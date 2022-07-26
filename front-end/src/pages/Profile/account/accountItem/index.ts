@@ -1,3 +1,3 @@
-import AccountItem from "./accountItem"
+import AccountItem from './accountItem'
 
 export default AccountItem

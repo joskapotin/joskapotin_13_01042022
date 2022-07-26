@@ -1,5 +1,5 @@
-import CONSTANTS from "../constants"
-import axiosInstance from "./axiosInstance"
+import CONSTANTS from '../constants'
+import axiosInstance from './axiosInstance'
 
 export interface Profile {
   email: string
@@ -34,7 +34,7 @@ export type UpdateProfileFunction = (profile: UpdateProfileProps) => Promise<Upd
 // Get user profile
 const getProfile: GetProfileFunction = async () => {
   const response = await axiosInstance({
-    method: "post",
+    method: 'post',
     url: CONSTANTS.API_ENDPOINTS.GET_PROFILE,
   })
   return response.data
@@ -43,7 +43,7 @@ const getProfile: GetProfileFunction = async () => {
 // Update user profile
 const updateProfile: UpdateProfileFunction = async profile => {
   const response = await axiosInstance({
-    method: "put",
+    method: 'put',
     url: CONSTANTS.API_ENDPOINTS.UPDATE_PROFILE,
     data: profile,
   })

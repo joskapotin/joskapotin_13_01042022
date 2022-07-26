@@ -1,5 +1,5 @@
-import CONSTANTS from "../constants"
-import { getWithExpiry } from "./localStorage"
+import CONSTANTS from '../constants'
+import { getWithExpiry } from './localStorage'
 
 function authHeader() {
   const token = getWithExpiry(CONSTANTS.TOKEN)

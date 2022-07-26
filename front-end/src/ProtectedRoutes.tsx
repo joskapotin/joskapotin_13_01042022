@@ -1,9 +1,9 @@
-import * as PropTypes from "prop-types"
-import { Navigate, useLocation } from "react-router-dom"
+import * as PropTypes from 'prop-types'
+import { Navigate, useLocation } from 'react-router-dom'
 
-import CONSTANTS from "./constants"
-import { selectIsAuth } from "./helpers/selectors"
-import useAppSelector from "./hooks/useAppSelector"
+import CONSTANTS from './constants'
+import { selectIsAuth } from './helpers/selectors'
+import useAppSelector from './hooks/useAppSelector'
 
 export interface ProtectedRouteProps {
   element: JSX.Element

@@ -1,6 +1,6 @@
-import * as PropTypes from "prop-types"
+import * as PropTypes from 'prop-types'
 
-import "./featureItem.css"
+import './featureItem.css'
 
 export interface FeatureItemProps {
   image: string
@@ -11,9 +11,9 @@ export interface FeatureItemProps {
 
 function FeatureItem({ image, alt, title, description }: FeatureItemProps) {
   return (
-    <div className="feature-item">
-      <img src={image} alt={alt} className="feature-icon" />
-      <h3 className="feature-item-title">{title}</h3>
+    <div className='feature-item'>
+      <img src={image} alt={alt} className='feature-icon' />
+      <h3 className='feature-item-title'>{title}</h3>
       <p>{description}</p>
     </div>
   )

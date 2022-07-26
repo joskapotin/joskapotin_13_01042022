@@ -1,10 +1,10 @@
-import { useForm } from "react-hook-form"
-import type { SubmitHandler } from "react-hook-form"
+import { useForm } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
 
-import { login } from "../../../features/auth/authSlice"
-import useAppDispatch from "../../../hooks/useAppDispatch"
+import { login } from '../../../features/auth/authSlice'
+import useAppDispatch from '../../../hooks/useAppDispatch'
 
-import "./signInForm.css"
+import './signInForm.css'
 
 export interface FormData {
   email: string
@@ -24,21 +24,21 @@ function SignInForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="input-wrapper">
-        <label htmlFor="email">Email</label>
-        <input type="text" id="email" {...register("email", { required: true })} />
-        {errors.email?.type && "Email is required"}
+      <div className='input-wrapper'>
+        <label htmlFor='email'>Email</label>
+        <input type='text' id='email' {...register('email', { required: true })} />
+        {errors.email?.type && 'Email is required'}
       </div>
-      <div className="input-wrapper">
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" {...register("password", { required: true })} />
-        {errors.password?.type && "Password is required"}
+      <div className='input-wrapper'>
+        <label htmlFor='password'>Password</label>
+        <input type='password' id='password' {...register('password', { required: true })} />
+        {errors.password?.type && 'Password is required'}
       </div>
-      <div className="input-remember">
-        <input type="checkbox" id="remember-me" {...register("rememberMe")} />
-        <label htmlFor="remember-me">Remember me</label>
+      <div className='input-remember'>
+        <input type='checkbox' id='remember-me' {...register('rememberMe')} />
+        <label htmlFor='remember-me'>Remember me</label>
       </div>
-      <button type="submit" className="sign-in-button">
+      <button type='submit' className='sign-in-button'>
         Sign In
       </button>
     </form>

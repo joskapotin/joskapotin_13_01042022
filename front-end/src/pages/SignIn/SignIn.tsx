@@ -1,13 +1,13 @@
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import CONSTANTS from "../../constants"
-import { selectAuth } from "../../helpers/selectors"
-import useAppSelector from "../../hooks/useAppSelector"
-import MainLayout from "../../layouts/main"
-import SignInForm from "../../pages/signIn/signInForm"
+import CONSTANTS from '../../constants'
+import { selectAuth } from '../../helpers/selectors'
+import useAppSelector from '../../hooks/useAppSelector'
+import MainLayout from '../../layouts/main'
+import SignInForm from '../../pages/signIn/signInForm'
 
-import "./signIn.css"
+import './signIn.css'
 
 function SignIn() {
   const { isAuth, isLoading, isError, message } = useAppSelector(selectAuth)
@@ -21,11 +21,11 @@ function SignIn() {
 
   return (
     <MainLayout bgDark>
-      <section className="sign-in-content">
-        <i className="fa fa-user-circle sign-in-icon" />
+      <section className='sign-in-content'>
+        <i className='fa fa-user-circle sign-in-icon' />
         <h1>Sign In</h1>
-        {isLoading && <p className="loading">Loading...</p>}
-        {isError && message && <p className="error">{message}</p>}
+        {isLoading && <p className='loading'>Loading...</p>}
+        {isError && message && <p className='error'>{message}</p>}
         <SignInForm />
       </section>
     </MainLayout>

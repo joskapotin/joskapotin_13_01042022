@@ -1,9 +1,9 @@
-import * as PropTypes from "prop-types"
+import * as PropTypes from 'prop-types'
 
-import Footer from "../../components/footer"
-import Header from "../../components/mainNav"
+import Footer from '../../components/footer'
+import Header from '../../components/mainNav'
 
-import "./main.css"
+import './main.css'
 
 export interface MainProps {
   children: React.ReactNode
@@ -14,7 +14,7 @@ function Main({ children, bgDark }: MainProps) {
   return (
     <>
       <Header />
-      <main className={`main ${bgDark ? "bg-dark" : "bg-light"}`}>{children}</main>
+      <main className={`main ${bgDark ? 'bg-dark' : 'bg-light'}`}>{children}</main>
       <Footer />
     </>
   )

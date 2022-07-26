@@ -1,16 +1,16 @@
 const CONSTANTS = {
-  API_URL: "http://localhost:3001/api/v1/user",
+  API_URL: 'http://localhost:3001/api/v1/user',
   API_ENDPOINTS: {
-    LOGIN: "login",
-    GET_PROFILE: "profile",
-    UPDATE_PROFILE: "profile",
+    LOGIN: 'login',
+    GET_PROFILE: 'profile',
+    UPDATE_PROFILE: 'profile',
   },
   ROUTES: {
-    HOME: "/",
-    SIGN_IN: "/sign-in",
-    PROFILE: "/profile",
+    HOME: '/',
+    SIGN_IN: '/sign-in',
+    PROFILE: '/profile',
   },
-  TOKEN: "token",
+  TOKEN: 'token',
 }
 
 export default CONSTANTS

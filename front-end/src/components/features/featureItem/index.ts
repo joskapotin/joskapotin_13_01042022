@@ -1,3 +1,3 @@
-import FeatureItem from "./featureItem"
+import FeatureItem from './featureItem'
 
 export default FeatureItem

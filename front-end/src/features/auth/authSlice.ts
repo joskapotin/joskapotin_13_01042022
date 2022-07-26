@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import type { AxiosError } from "axios"
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import type { AxiosError } from 'axios'
 
-import CONSTANTS from "../../constants"
-import { getWithExpiry, setWithExpiry } from "../../helpers/localStorage"
-import type { FormData } from "../../pages/signIn/signInForm"
-import authService from "../../services/auth.service"
+import CONSTANTS from '../../constants'
+import { getWithExpiry, setWithExpiry } from '../../helpers/localStorage'
+import type { FormData } from '../../pages/signIn/signInForm'
+import authService from '../../services/auth.service'
 
 export interface AuthState {
   isLoading: boolean
@@ -30,44 +30,50 @@ const weekDuration = 60 * 60 * 24 * 7
 const dayDuration = 60 * 60 * 24
 
 // Login user
-const login = createAsyncThunk<string, FormData, { rejectValue: string }>("auth/login", async (formData, thunkAPI) => {
-  const { email, password, rememberMe } = formData
-  try {
-    const data = await authService.login({ email, password })
-    const { message } = data
-    const token = data.body?.token
+const login = createAsyncThunk<string, FormData, { rejectValue: string }>(
+  'auth/login',
+  async (formData, thunkAPI) => {
+    const { email, password, rememberMe } = formData
+    try {
+      const data = await authService.login({ email, password })
+      const { message } = data
+      const token = data.body?.token
 
-    if (token) {
-      switch (rememberMe) {
-        case true:
-          setWithExpiry({ key: CONSTANTS.TOKEN, value: token, ttl: weekDuration }) // 1 week
-          break
-        default:
-          setWithExpiry({ key: CONSTANTS.TOKEN, value: token, ttl: dayDuration }) // 1 day
+      if (token) {
+        switch (rememberMe) {
+          case true:
+            setWithExpiry({ key: CONSTANTS.TOKEN, value: token, ttl: weekDuration }) // 1 week
+            break
+          default:
+            setWithExpiry({ key: CONSTANTS.TOKEN, value: token, ttl: dayDuration }) // 1 day
+        }
       }
-    }
 
-    return message
-  } catch (err) {
-    const error = err as CustomError
-    const message = error.response.data.message
-    return thunkAPI.rejectWithValue(message)
-  }
-})
+      return message
+    } catch (err) {
+      const error = err as CustomError
+      const message = error.response.data.message
+      return thunkAPI.rejectWithValue(message)
+    }
+  },
+)
 
 // Logout user
-const logout = createAsyncThunk<void, void, { rejectValue: string }>("auth/logout", async (_, thunkAPI) => {
-  try {
-    await authService.logout()
-  } catch (err) {
-    const error = err as Error
-    const message = error.message
-    return thunkAPI.rejectWithValue(message)
-  }
-})
+const logout = createAsyncThunk<void, void, { rejectValue: string }>(
+  'auth/logout',
+  async (_, thunkAPI) => {
+    try {
+      await authService.logout()
+    } catch (err) {
+      const error = err as Error
+      const message = error.message
+      return thunkAPI.rejectWithValue(message)
+    }
+  },
+)
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {},
   extraReducers: builder => {

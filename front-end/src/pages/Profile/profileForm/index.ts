@@ -1,4 +1,4 @@
-import ProfileForm from "./profileForm"
+import ProfileForm from './profileForm'
 
 export default ProfileForm
-export type { FormData } from "./profileForm"
+export type { FormData } from './profileForm'

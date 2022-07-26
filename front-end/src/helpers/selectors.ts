@@ -1,4 +1,4 @@
-import type { RootState } from "../store"
+import type { RootState } from '../store'
 
 const selectAuth = (state: RootState) => state.auth
 const selectIsAuth = (state: RootState) => state.auth.isAuth

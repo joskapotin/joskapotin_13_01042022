@@ -1,7 +1,7 @@
-import axios from "axios"
+import axios from 'axios'
 
-import CONSTANTS from "../constants"
-import authHeader from "../helpers/authHeader"
+import CONSTANTS from '../constants'
+import authHeader from '../helpers/authHeader'
 
 /* Creating a new instance of axios. */
 const axiosInstance = axios.create()
