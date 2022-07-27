@@ -11,6 +11,6 @@ const CONSTANTS = {
     PROFILE: '/profile',
   },
   TOKEN: 'token',
-}
+} as const
 
 export default CONSTANTS
