@@ -5,36 +5,35 @@ import { toggleIsEditing, updateProfile } from '../../../features/user/userSlice
 import { selectUser } from '../../../helpers/selectors'
 import useAppDispatch from '../../../hooks/useAppDispatch'
 import useAppSelector from '../../../hooks/useAppSelector'
-import type { Profile } from '../../../services/user.service'
 
 import './profileForm.css'
 
-export type FormData = {
+export type ProfileFormData = {
   firstName: string
   lastName: string
 }
 
 function ProfileForm() {
   const dispatch = useAppDispatch()
-  const { profile, isEditing } = useAppSelector(selectUser)
 
-  const { firstName, lastName } = profile as Profile
+  const { profile, isEditing } = useAppSelector(selectUser)
+  const { firstName, lastName } = profile as ProfileFormData
 
   const handleEditToggle = () => {
     reset()
     dispatch(toggleIsEditing())
   }
 
-  const handleSaveProfile = (formData: FormData) => dispatch(updateProfile(formData))
+  const handleSaveProfile = (formData: ProfileFormData) => dispatch(updateProfile(formData))
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>()
+  } = useForm<ProfileFormData>()
 
-  const onSubmit: SubmitHandler<FormData> = formData => handleSaveProfile(formData)
+  const onSubmit: SubmitHandler<ProfileFormData> = formData => handleSaveProfile(formData)
 
   return (
     <>

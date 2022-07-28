@@ -1,31 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { AxiosError } from 'axios'
 
-import type { FormData } from '../../pages/profile/profileForm'
+import type { ProfileFormData } from '../../pages/profile/profileForm'
 import userService from '../../services/user.service'
 import type { Profile } from '../../services/user.service'
 
-type UserState = {
-  isLoading: boolean
-  isError: boolean
-  profile?: Profile | null
-  isEditing: boolean
-  message?: string | null
-}
-
-type ProfileSuccess = {
+type ProfilePayload = {
   message: string
   profile: Profile
 }
 
-type ProfileError = string
-
-interface CustomError {
-  response: AxiosError & {
-    data: {
-      message: string
-    }
-  }
+type UserState = {
+  isLoading: boolean
+  isError: boolean
+  profile: Profile | null
+  isEditing: boolean
+  message: string | null
 }
 
 const initialState: UserState = {
@@ -36,34 +25,30 @@ const initialState: UserState = {
   message: null,
 }
 
-const getProfile = createAsyncThunk<ProfileSuccess, void, { rejectValue: ProfileError }>(
+const getProfile = createAsyncThunk<ProfilePayload, void, { rejectValue: string }>(
   'user/getProfile',
   async (_, thunkAPI) => {
     try {
       const data = await userService.getProfile()
       const { message, body: profile } = data
-      return { message, profile }
+      return { profile, message }
     } catch (err) {
-      const error = err as CustomError
-      const message = error.response.data.message
-      return thunkAPI.rejectWithValue(message)
+      const error = err as Error
+      return thunkAPI.rejectWithValue(error.message)
     }
   },
 )
 
-const updateProfile = createAsyncThunk<ProfileSuccess, FormData, { rejectValue: string }>(
+const updateProfile = createAsyncThunk<ProfilePayload, ProfileFormData, { rejectValue: string }>(
   'user/updateProfile',
   async (formData, thunkAPI) => {
     try {
       const data = await userService.updateProfile(formData)
       const { message, body: profile } = data
-      return { message, profile }
+      return { profile, message }
     } catch (err) {
-      console.log(err)
-      const error = err as CustomError
-      const message = error.response.data.message
-
-      return thunkAPI.rejectWithValue(message)
+      const error = err as Error
+      return thunkAPI.rejectWithValue(error.message)
     }
   },
 )
@@ -82,19 +67,21 @@ const userSlice = createSlice({
     })
     builder.addCase(getProfile.fulfilled, (state, { payload }) => {
       state.isLoading = false
+      state.isError = false
       state.profile = payload.profile
       state.message = payload.message
     })
     builder.addCase(getProfile.rejected, (state, { payload }) => {
       state.isLoading = false
       state.isError = true
-      state.message = payload
+      state.message = payload as string
     })
     builder.addCase(updateProfile.pending, state => {
       state.isLoading = true
     })
     builder.addCase(updateProfile.fulfilled, (state, { payload }) => {
       state.isLoading = false
+      state.isError = false
       state.profile = payload.profile
       state.message = payload.message
       state.isEditing = false
@@ -102,7 +89,7 @@ const userSlice = createSlice({
     builder.addCase(updateProfile.rejected, (state, { payload }) => {
       state.isLoading = false
       state.isError = true
-      state.message = payload
+      state.message = payload as string
     })
     builder.addCase('auth/logout/fulfilled', state => {
       state.isLoading = false

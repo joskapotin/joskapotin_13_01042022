@@ -1,44 +1,33 @@
 import CONSTANTS from '../constants'
 import axiosInstance from './axiosInstance'
 
-type LoginProps = {
-  email: string
-  password: string
-}
-
 type LoginResponse = {
   status: string
   message: string
-  body?: {
+  body: {
     token: string
   }
 }
-
-type LoginFunction = (props: LoginProps) => Promise<LoginResponse>
 
 type LogoutResponse = {
   status: string
   message: string
 }
 
-type LogoutFunction = () => Promise<LogoutResponse>
-
-const login: LoginFunction = async ({ email, password }) => {
-  const response = await axiosInstance({
-    method: 'post',
-    url: CONSTANTS.API_ENDPOINTS.LOGIN,
-    data: { email, password },
-  })
-  return response.data
+const login = async ({ email, password }: { email: string; password: string }) => {
+  return (await axiosInstance.post(CONSTANTS.API_ENDPOINTS.LOGIN, {
+    email,
+    password,
+  })) as LoginResponse
 }
 
-const logout: LogoutFunction = async () => {
+const logout = async (message: string) => {
   return new Promise(resolve => {
     setTimeout(() => {
-      localStorage.removeItem('token')
-      resolve({ status: 'success', message: 'Logout successful' })
+      localStorage.removeItem(CONSTANTS.TOKEN)
+      resolve({ status: 'success', message })
     }, 300)
-  })
+  }) as Promise<LogoutResponse>
 }
 
 const authService = {

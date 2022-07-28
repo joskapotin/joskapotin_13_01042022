@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { AxiosError } from 'axios'
 
 import CONSTANTS from '../../constants'
 import { getWithExpiry, setWithExpiry } from '../../helpers/localStorage'
@@ -10,26 +9,19 @@ type AuthState = {
   isLoading: boolean
   isError: boolean
   isAuth: boolean
-  message?: string
-}
-interface CustomError extends Error {
-  response: AxiosError & {
-    data: {
-      message: string
-    }
-  }
+  message: string | null
 }
 
-const initialState: AuthState = {
+const initialState = {
   isLoading: false,
   isError: false,
   isAuth: !!getWithExpiry(CONSTANTS.TOKEN),
-}
+  message: 'Please Login',
+} as AuthState
 
 const weekDuration = 60 * 60 * 24 * 7
 const dayDuration = 60 * 60 * 24
 
-// Login user
 const login = createAsyncThunk<string, FormData, { rejectValue: string }>(
   'auth/login',
   async (formData, thunkAPI) => {
@@ -37,37 +29,27 @@ const login = createAsyncThunk<string, FormData, { rejectValue: string }>(
     try {
       const data = await authService.login({ email, password })
       const { message } = data
-      const token = data.body?.token
-
-      if (token) {
-        switch (rememberMe) {
-          case true:
-            setWithExpiry({ key: CONSTANTS.TOKEN, value: token, ttl: weekDuration }) // 1 week
-            break
-          default:
-            setWithExpiry({ key: CONSTANTS.TOKEN, value: token, ttl: dayDuration }) // 1 day
-        }
-      }
+      const token = data.body.token
+      const expiryDuration = rememberMe ? weekDuration : dayDuration
+      setWithExpiry({ key: CONSTANTS.TOKEN, value: token, ttl: expiryDuration })
 
       return message
     } catch (err) {
-      const error = err as CustomError
-      const message = error.response.data.message
-      return thunkAPI.rejectWithValue(message)
+      const error = err as Error
+      return thunkAPI.rejectWithValue(error.message)
     }
   },
 )
 
-// Logout user
-const logout = createAsyncThunk<void, void, { rejectValue: string }>(
+const logout = createAsyncThunk<string, string | undefined, { rejectValue: string }>(
   'auth/logout',
-  async (_, thunkAPI) => {
+  async (message = 'Logout Successful', thunkAPI) => {
     try {
-      await authService.logout()
+      await authService.logout(message)
+      return message
     } catch (err) {
       const error = err as Error
-      const message = error.message
-      return thunkAPI.rejectWithValue(message)
+      return thunkAPI.rejectWithValue(error.message)
     }
   },
 )
@@ -80,16 +62,16 @@ const authSlice = createSlice({
     builder.addCase(logout.pending, state => {
       state.isLoading = true
     })
-    builder.addCase(logout.fulfilled, state => {
+    builder.addCase(logout.fulfilled, (state, { payload }) => {
       state.isLoading = false
       state.isError = false
       state.isAuth = false
-      state.message = undefined
+      state.message = payload
     })
     builder.addCase(logout.rejected, (state, { payload }) => {
       state.isLoading = false
       state.isError = true
-      state.message = payload
+      state.message = payload as string
     })
     builder.addCase(login.pending, state => {
       state.isLoading = true
@@ -101,7 +83,8 @@ const authSlice = createSlice({
     })
     builder.addCase(login.rejected, (state, { payload }) => {
       state.isLoading = false
-      state.message = payload
+      state.isError = true
+      state.message = payload as string
     })
   },
 })

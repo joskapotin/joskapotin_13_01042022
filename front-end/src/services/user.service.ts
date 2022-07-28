@@ -1,13 +1,14 @@
 import CONSTANTS from '../constants'
+import type { ProfileFormData } from '../pages/profile/profileForm'
 import axiosInstance from './axiosInstance'
 
 export type Profile = {
-  email: string
   firstName: string
   lastName: string
   createdAt: string
-  updatedAt: string
+  email: string
   id: string
+  updatedAt: string
 }
 
 type GetProfileResponse = {
@@ -16,38 +17,19 @@ type GetProfileResponse = {
   body: Profile
 }
 
-type GetProfileFunction = () => Promise<GetProfileResponse>
-
-type UpdateProfileProps = {
-  firstName: string
-  lastName: string
-}
-
-type UpdateProfileResponse = {
-  status: number
-  message: string
-  body: Profile
-}
-
-type UpdateProfileFunction = (profile: UpdateProfileProps) => Promise<UpdateProfileResponse>
+type UpdateProfileResponse = GetProfileResponse
 
 // Get user profile
-const getProfile: GetProfileFunction = async () => {
-  const response = await axiosInstance({
-    method: 'post',
-    url: CONSTANTS.API_ENDPOINTS.GET_PROFILE,
-  })
-  return response.data
+const getProfile = async () => {
+  return (await axiosInstance.post(CONSTANTS.API_ENDPOINTS.GET_PROFILE)) as GetProfileResponse
 }
 
 // Update user profile
-const updateProfile: UpdateProfileFunction = async profile => {
-  const response = await axiosInstance({
-    method: 'put',
-    url: CONSTANTS.API_ENDPOINTS.UPDATE_PROFILE,
-    data: profile,
-  })
-  return response.data
+const updateProfile = async (profile: ProfileFormData) => {
+  return (await axiosInstance.put(
+    CONSTANTS.API_ENDPOINTS.UPDATE_PROFILE,
+    profile,
+  )) as UpdateProfileResponse
 }
 
 const userService = {
