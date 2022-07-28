@@ -4,10 +4,12 @@ import type { ProfileFormData } from '../../pages/profile/profileForm'
 import userService from '../../services/user.service'
 import type { Profile } from '../../services/user.service'
 
-type ProfilePayload = {
+type GetProfilePayload = {
   message: string
   profile: Profile
 }
+
+type updateProfilePayload = GetProfilePayload
 
 type UserState = {
   isLoading: boolean
@@ -17,15 +19,15 @@ type UserState = {
   message: string | null
 }
 
-const initialState: UserState = {
+const initialState = {
   isLoading: false,
   isError: false,
   isEditing: false,
   profile: null,
   message: null,
-}
+} as UserState
 
-const getProfile = createAsyncThunk<ProfilePayload, void, { rejectValue: string }>(
+const getProfile = createAsyncThunk<GetProfilePayload, void, { rejectValue: string }>(
   'user/getProfile',
   async (_, thunkAPI) => {
     try {
@@ -39,19 +41,20 @@ const getProfile = createAsyncThunk<ProfilePayload, void, { rejectValue: string 
   },
 )
 
-const updateProfile = createAsyncThunk<ProfilePayload, ProfileFormData, { rejectValue: string }>(
-  'user/updateProfile',
-  async (formData, thunkAPI) => {
-    try {
-      const data = await userService.updateProfile(formData)
-      const { message, body: profile } = data
-      return { profile, message }
-    } catch (err) {
-      const error = err as Error
-      return thunkAPI.rejectWithValue(error.message)
-    }
-  },
-)
+const updateProfile = createAsyncThunk<
+  updateProfilePayload,
+  ProfileFormData,
+  { rejectValue: string }
+>('user/updateProfile', async (formData, thunkAPI) => {
+  try {
+    const data = await userService.updateProfile(formData)
+    const { message, body: profile } = data
+    return { profile, message }
+  } catch (err) {
+    const error = err as Error
+    return thunkAPI.rejectWithValue(error.message)
+  }
+})
 
 const userSlice = createSlice({
   name: 'user',

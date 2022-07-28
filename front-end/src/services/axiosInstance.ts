@@ -17,7 +17,6 @@ const axiosInstance = axios.create()
 
 /* Handle error */
 const handleError = (error: CustomError | AxiosError) => {
-  console.log('ERREUR : ', error)
   return Promise.reject(
     new Error(error.response?.data?.message || error.message || 'Something went wrong'),
   )
